@@ -1,7 +1,8 @@
 ASDepthModal is mostly inspired by some CSS work from http://lab.hakim.se/avgrund/ (although it does not provide any blur).
 It gives a sense of depth between the current fullscreen view and a modal popup view.
 
-![](https://github.com/autresphere/ASDepthModal/raw/master/Screenshots/iPhone.png)
+![](https://github.com/autresphere/ASDepthModal/raw/master/Screenshots/iPhone0.png)
+![](https://github.com/autresphere/ASDepthModal/raw/master/Screenshots/iPhone1.png)
 
 ## Try it
 Download the whole project and run it under xcode. You can choose either iPhone or iPad destination.
