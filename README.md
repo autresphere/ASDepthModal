@@ -2,8 +2,6 @@ ASDepthModal is mostly inspired by a nice CSS work from http://lab.hakim.se/avgr
 
 It gives a sense of depth between the current fullscreen view which is sent backward and a modal popup view which appears in front.
 
-![](https://github.com/autresphere/ASDepthModal/raw/master/Screenshots/iPhone0.png)
-![](https://github.com/autresphere/ASDepthModal/raw/master/Screenshots/iPhone1.png)
 ![](https://github.com/autresphere/ASDepthModal/raw/master/Screenshots/iPhoneVideo.gif)
 
 ## Try it
