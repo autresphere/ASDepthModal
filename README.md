@@ -5,6 +5,8 @@ It gives a sense of depth between the current fullscreen view which is sent back
 ![](https://github.com/autresphere/ASDepthModal/raw/master/Screenshots/iPhone0.png)
 ![](https://github.com/autresphere/ASDepthModal/raw/master/Screenshots/iPhone1.png)
 
+[](https://github.com/autresphere/ASDepthModal/raw/master/Screenshots/iPhoneVideo.gif)
+
 ## Try it
 Download the whole project and run it under Xcode. You can choose either iPhone or iPad destination.
 It supports all orientations change.

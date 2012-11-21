@@ -21,6 +21,7 @@
 		4A0C3375161C6AAA00362314 /* ASDepthModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C3374161C6AAA00362314 /* ASDepthModalViewController.m */; };
 		4A0C337A161C761100362314 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A0C3379161C761100362314 /* QuartzCore.framework */; };
 		4A0C337C161C8AFB00362314 /* pattern1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4A0C337B161C8AFB00362314 /* pattern1.jpg */; };
+		4AA4DC99165CCC2200F326CA /* license in Resources */ = {isa = PBXBuildFile; fileRef = 4AA4DC98165CCC2200F326CA /* license */; };
 		4AED89E1161D889800D227B3 /* ASViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AED89DF161D889800D227B3 /* ASViewController.xib */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		4A0C3374161C6AAA00362314 /* ASDepthModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASDepthModalViewController.m; sourceTree = "<group>"; };
 		4A0C3379161C761100362314 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4A0C337B161C8AFB00362314 /* pattern1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pattern1.jpg; sourceTree = "<group>"; };
+		4AA4DC98165CCC2200F326CA /* license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = license; sourceTree = "<group>"; };
 		4AED89E0161D889800D227B3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ASViewController.xib; sourceTree = "<group>"; };
 		4AED89E4161D9DA500D227B3 /* Readme.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = Readme.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -67,6 +69,7 @@
 		4A0C3341161C6A5800362314 = {
 			isa = PBXGroup;
 			children = (
+				4AA4DC98165CCC2200F326CA /* license */,
 				4AED89E4161D9DA500D227B3 /* Readme.md */,
 				4A0C3356161C6A5800362314 /* ASDepthModal */,
 				4A0C334F161C6A5800362314 /* Frameworks */,
@@ -183,6 +186,7 @@
 				4A0C336D161C6A5800362314 /* ASViewController~ipad.xib in Resources */,
 				4A0C337C161C8AFB00362314 /* pattern1.jpg in Resources */,
 				4AED89E1161D889800D227B3 /* ASViewController.xib in Resources */,
+				4AA4DC99165CCC2200F326CA /* license in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
