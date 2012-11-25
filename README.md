@@ -31,4 +31,7 @@ You can configure the background color as well as the effect applied on the popu
 ``` objective-c
 [ASDepthModalViewController presentView:yourPopupView withBackgroundColor:color popupAnimationStyle:style];
 ```
-Three styles are available : no effect, grow effect or shrink effect. 
+Three styles are available : no effect, grow effect or shrink effect.
+
+### ARC Support
+This class requires ARC.
