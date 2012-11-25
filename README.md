@@ -33,5 +33,5 @@ You can configure the background color as well as the effect applied on the popu
 ```
 Three styles are available : no effect, grow effect or shrink effect.
 
-### ARC Support
+## ARC Support
 This class requires ARC.
