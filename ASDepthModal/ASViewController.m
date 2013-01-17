@@ -31,6 +31,7 @@
     self.popupView.layer.shadowOpacity = 0.7;
     self.popupView.layer.shadowOffset = CGSizeMake(6, 6);
     self.popupView.layer.shouldRasterize = YES;
+    self.popupView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     [self setupConfigurations];
     [self.colorTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
     [self.styleTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];

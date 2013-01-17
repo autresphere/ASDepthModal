@@ -1,3 +1,4 @@
+## ASDepthModal
 ASDepthModal is mostly inspired by a nice CSS work from http://lab.hakim.se/avgrund/ (although ASDepthModal does not provide any blur effect).
 
 It gives a sense of depth between the current fullscreen view which is sent backward and a modal popup view which appears in front.
@@ -33,4 +34,7 @@ You can configure the background color as well as the effect applied on the popu
 ``` objective-c
 [ASDepthModalViewController presentView:yourPopupView withBackgroundColor:color popupAnimationStyle:style];
 ```
-Three styles are available : no effect, grow effect or shrink effect. 
+Three styles are available : no effect, grow effect or shrink effect.
+
+## ARC Support
+This class requires ARC.
