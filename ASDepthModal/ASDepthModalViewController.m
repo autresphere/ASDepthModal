@@ -75,11 +75,6 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
                      }];
 }
 
-- (void)handleCloseGesture:(UIGestureRecognizer *)gesture
-{
-    [self dismiss];
-}
-
 - (void)animatePopupWithStyle:(ASDepthModalAnimationStyle)style
 {
     switch (style) {
@@ -109,14 +104,13 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
             self.initialPopupTransform = self.popupView.transform;
             break;
     }
-    
 }
 
 - (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color popupAnimationStyle:(ASDepthModalAnimationStyle)popupAnimationStyle;
 {
     UIWindow *window;
-    UITapGestureRecognizer *tapGesture;
     CGRect frame;
+    UIButton *dismissButton;
     
     if(color != nil)
     {
@@ -141,12 +135,14 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
     self.coverView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.coverView.backgroundColor = [UIColor colorWithRed:00/255.0 green:00/255.0 blue:00/255.0 alpha:0.5];
     [self.view addSubview:self.coverView];
+    
+    dismissButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    dismissButton.frame = self.coverView.bounds;
+    [dismissButton addTarget:self action:@selector(handleCloseAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.coverView addSubview:dismissButton];
+    
     [self.coverView addSubview:self.popupView];
     self.popupView.center = CGPointMake(self.coverView.bounds.size.width/2, self.coverView.bounds.size.height/2);
-    
-    tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleCloseGesture:)];
-    [self.coverView addGestureRecognizer:tapGesture];
-    [self.popupView addGestureRecognizer:[[UITapGestureRecognizer alloc] init]];
     
     self.coverView.alpha = 0;
     [UIView animateWithDuration:kModalViewAnimationDuration
@@ -189,6 +185,12 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
         controller = (ASDepthModalViewController *)window.rootViewController;
         [controller dismiss];
     }
+}
+
+#pragma mark - Action
+- (void)handleCloseAction:(id)sender
+{
+    [self dismiss];
 }
 
 @end
