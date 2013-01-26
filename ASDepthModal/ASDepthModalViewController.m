@@ -120,6 +120,13 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
     window = [UIApplication sharedApplication].keyWindow;
     self.rootViewController = window.rootViewController;
     frame = self.rootViewController.view.frame;
+    
+    if([[UIApplication sharedApplication] isStatusBarHidden]){
+        frame.size.height = frame.size.height;
+    }else{
+        frame.size.height = frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height;
+    }
+    
     self.view.transform = self.rootViewController.view.transform;
     self.rootViewController.view.transform = CGAffineTransformIdentity;
     frame.origin = CGPointZero;
