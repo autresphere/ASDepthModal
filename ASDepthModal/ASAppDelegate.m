@@ -7,17 +7,25 @@
 //
 
 #import "ASAppDelegate.h"
-
 #import "ASViewController.h"
+
+// You can use either a basic UIViewController or a UINavigationController as the root view controller.
+#define USE_NAVIGATION_CONTROLLER 0
 
 @implementation ASAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
     self.viewController = [[ASViewController alloc] initWithNibName:@"ASViewController" bundle:nil];
     self.window.rootViewController = self.viewController;
+    
+#if USE_NAVIGATION_CONTROLLER
+    UINavigationController *navigationController;
+    navigationController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
+    self.window.rootViewController = navigationController;
+#endif
+    
     [self.window makeKeyAndVisible];
     return YES;
 }

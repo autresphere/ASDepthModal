@@ -120,6 +120,25 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
     window = [UIApplication sharedApplication].keyWindow;
     self.rootViewController = window.rootViewController;
     frame = self.rootViewController.view.frame;
+    if(![UIApplication sharedApplication].isStatusBarHidden)
+    {
+        // Take care of the status bar only if the frame is full screen, which depends on the View controller type.
+        // For example, frame is full screen with UINavigationController, but not with basic UIViewController.
+        if(UIInterfaceOrientationIsPortrait(self.rootViewController.interfaceOrientation))
+        {
+            if(frame.size.height == window.bounds.size.height)
+            {
+                frame.size.height -= [UIApplication sharedApplication].statusBarFrame.size.height;
+            }
+        }
+        else
+        {
+            if(frame.size.width == window.bounds.size.width)
+            {
+                frame.size.width -= [UIApplication sharedApplication].statusBarFrame.size.width;
+            }
+        }
+    }
     self.view.transform = self.rootViewController.view.transform;
     self.rootViewController.view.transform = CGAffineTransformIdentity;
     frame.origin = CGPointZero;
