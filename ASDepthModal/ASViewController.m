@@ -13,6 +13,7 @@
 @interface ASViewController ()
 @property (nonatomic, strong) NSArray *configurationColors;
 @property (nonatomic, strong) NSArray *configurationStyles;
+@property (nonatomic, strong) NSArray *configurationRootStyles;
 @end
 
 @implementation ASViewController
@@ -22,6 +23,7 @@
 {
     self.configurationColors = [NSArray arrayWithObjects:@"black (default)", @"pattern", nil];
     self.configurationStyles = [NSArray arrayWithObjects:@"grow (default)", @"shrink", @"none", nil];
+    self.configurationRootStyles = [NSArray arrayWithObjects:@"grow", @"shrink (default)", @"none", nil];
 }
 
 - (void)viewDidLoad
@@ -35,10 +37,13 @@
     [self setupConfigurations];
     [self.colorTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
     [self.styleTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+    [self.rootStyleTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
     self.colorTableView.backgroundColor = [UIColor whiteColor];
     self.colorTableView.backgroundView = nil;
     self.styleTableView.backgroundColor = [UIColor whiteColor];
     self.styleTableView.backgroundView = nil;
+    self.rootStyleTableView.backgroundColor = [UIColor whiteColor];
+    self.rootStyleTableView.backgroundView = nil;
     
     UIScrollView *scrollView;
     
@@ -58,8 +63,10 @@
 {
     UIColor *color = nil;
     ASDepthModalAnimationStyle style = ASDepthModalAnimationDefault;
+    ASDepthModalAnimationStyle rootStyle = ASDepthModalAnimationDefault;
     NSInteger colorConfigurationIndex;
     NSInteger styleConfigurationIndex;
+    NSInteger rootStyleConfigurationIndex;
     
     colorConfigurationIndex = [self.colorTableView indexPathForSelectedRow].row;
     if(colorConfigurationIndex == 1)
@@ -81,7 +88,17 @@
         style = ASDepthModalAnimationNone;
     }
     
-    [ASDepthModalViewController presentView:self.popupView withBackgroundColor:color popupAnimationStyle:style];
+    rootStyleConfigurationIndex = [self.rootStyleTableView indexPathForSelectedRow].row;
+    if(rootStyleConfigurationIndex == 1)
+    {
+        rootStyle = ASDepthModalAnimationShrink;
+    }
+    else if(rootStyleConfigurationIndex == 2)
+    {
+        rootStyle = ASDepthModalAnimationNone;
+    }
+
+    [ASDepthModalViewController presentView:self.popupView withBackgroundColor:color popupAnimationStyle:style rootViewAnimationStyle:rootStyle];
 }
 
 - (IBAction)closePopupAction:(id)sender
@@ -113,9 +130,13 @@
     {
         return @"Back view color";
     }
+    else if (tableView == self.rootStyleTableView)
+    {
+        return @"Popup effect";
+    }
     else
     {
-        return @"Popup animation effect";
+        return @"Root effect";
     }
 }
 
@@ -124,7 +145,7 @@
     UITableViewCell *cell;
     NSArray *titles;
     
-    titles = (tableView == self.colorTableView?self.configurationColors:self.configurationStyles);
+    titles = (tableView == self.colorTableView?self.configurationColors:tableView==self.styleTableView?self.configurationStyles:self.configurationRootStyles);
     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     cell.textLabel.text = [titles objectAtIndex:indexPath.row];
     cell.backgroundColor = [UIColor whiteColor];

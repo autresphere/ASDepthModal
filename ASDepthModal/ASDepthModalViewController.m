@@ -106,8 +106,37 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
     }
 }
 
-- (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color popupAnimationStyle:(ASDepthModalAnimationStyle)popupAnimationStyle;
+- (void)animateRootViewWithStyle:(ASDepthModalAnimationStyle)style
 {
+    switch (style) {
+        case ASDepthModalAnimationGrow:
+        {
+            [UIView animateWithDuration:kModalViewAnimationDuration
+                             animations:^{
+                                 self.rootViewController.view.transform = CGAffineTransformMakeScale(1.1, 1.1);
+                                 self.coverView.alpha = 1;
+                             }];        }
+            break;
+            
+        case ASDepthModalAnimationShrink:
+        {
+            [UIView animateWithDuration:kModalViewAnimationDuration
+                             animations:^{
+                                 self.rootViewController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
+                                 self.coverView.alpha = 1;
+                             }];
+        }
+            break;
+        default:
+            [UIView animateWithDuration:kModalViewAnimationDuration
+                             animations:^{
+                                 self.coverView.alpha = 1;
+                             }];
+            break;
+    }
+}
+
+- (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color popupAnimationStyle:(ASDepthModalAnimationStyle)popupAnimationStyle currentViewAnimationStyle:(ASDepthModalAnimationStyle)rootViewAnimationStyle {
     UIWindow *window;
     CGRect frame;
     UIButton *dismissButton;
@@ -164,11 +193,7 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
     self.popupView.center = CGPointMake(self.coverView.bounds.size.width/2, self.coverView.bounds.size.height/2);
     
     self.coverView.alpha = 0;
-    [UIView animateWithDuration:kModalViewAnimationDuration
-                     animations:^{
-                         self.rootViewController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
-                         self.coverView.alpha = 1;
-                     }];
+    [self animateRootViewWithStyle:rootViewAnimationStyle];
     [self animatePopupWithStyle:popupAnimationStyle];
 }
 
@@ -186,10 +211,16 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
 
 + (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color popupAnimationStyle:(ASDepthModalAnimationStyle)popupAnimationStyle;
 {
+    [ASDepthModalViewController presentView:view withBackgroundColor:color popupAnimationStyle:popupAnimationStyle rootViewAnimationStyle:ASDepthModalAnimationShrink];
+}
+
++ (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color popupAnimationStyle:(ASDepthModalAnimationStyle)popupAnimationStyle rootViewAnimationStyle:(ASDepthModalAnimationStyle)rootViewAnimationStyle {
+    
     ASDepthModalViewController *modalViewController;
     
     modalViewController = [[ASDepthModalViewController alloc] init];
-    [modalViewController presentView:view withBackgroundColor:(UIColor *)color popupAnimationStyle:popupAnimationStyle];
+    [modalViewController presentView:view withBackgroundColor:(UIColor *)color popupAnimationStyle:popupAnimationStyle currentViewAnimationStyle:rootViewAnimationStyle];
+    
 }
 
 + (void)dismiss

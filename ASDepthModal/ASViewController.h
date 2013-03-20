@@ -13,6 +13,7 @@
 @property (strong, nonatomic) IBOutlet UIView *popupView;
 @property (strong, nonatomic) IBOutlet UITableView *colorTableView;
 @property (strong, nonatomic) IBOutlet UITableView *styleTableView;
+@property (strong, nonatomic) IBOutlet UITableView *rootStyleTableView;
 
 - (IBAction)showModalViewAction:(id)sender;
 - (IBAction)closePopupAction:(id)sender;

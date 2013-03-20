@@ -40,6 +40,7 @@ Mostly inspired by http://lab.hakim.se/avgrund/
 @interface ASDepthModalViewController : UIViewController
 
 + (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color popupAnimationStyle:(ASDepthModalAnimationStyle)popupAnimationStyle;
++ (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color popupAnimationStyle:(ASDepthModalAnimationStyle)popupAnimationStyle rootViewAnimationStyle:(ASDepthModalAnimationStyle)rootViewAnimationStyle;
 + (void)presentView:(UIView *)view;
 + (void)dismiss;
 

@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1552</int>
-		<string key="IBDocument.SystemVersion">12C60</string>
+		<string key="IBDocument.SystemVersion">12D78</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.34</string>
-		<string key="IBDocument.HIToolboxVersion">625.00</string>
+		<string key="IBDocument.AppKitVersion">1187.37</string>
+		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">2083</string>
@@ -148,7 +148,29 @@
 									<object class="IBUITableView" id="414909445">
 										<reference key="NSNextResponder" ref="526933429"/>
 										<int key="NSvFlags">274</int>
-										<string key="NSFrame">{{0, 148}, {304, 198}}</string>
+										<string key="NSFrame">{{0, 148}, {152, 198}}</string>
+										<reference key="NSSuperview" ref="526933429"/>
+										<reference key="NSWindow"/>
+										<string key="NSReuseIdentifierKey">_NS:9</string>
+										<reference key="IBUIBackgroundColor" ref="334663576"/>
+										<bool key="IBUIClipsSubviews">YES</bool>
+										<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+										<bool key="IBUIBounces">NO</bool>
+										<bool key="IBUIScrollEnabled">NO</bool>
+										<bool key="IBUIShowsHorizontalScrollIndicator">NO</bool>
+										<bool key="IBUIShowsVerticalScrollIndicator">NO</bool>
+										<int key="IBUIStyle">1</int>
+										<int key="IBUISeparatorStyle">2</int>
+										<int key="IBUISectionIndexMinimumDisplayRowCount">0</int>
+										<bool key="IBUIShowsSelectionImmediatelyOnTouchBegin">YES</bool>
+										<float key="IBUIRowHeight">44</float>
+										<float key="IBUISectionHeaderHeight">10</float>
+										<float key="IBUISectionFooterHeight">10</float>
+									</object>
+									<object class="IBUITableView" id="394518893">
+										<reference key="NSNextResponder" ref="526933429"/>
+										<int key="NSvFlags">274</int>
+										<string key="NSFrame">{{152, 148}, {152, 198}}</string>
 										<reference key="NSSuperview" ref="526933429"/>
 										<reference key="NSWindow"/>
 										<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -204,7 +226,7 @@
 				<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 			</object>
 			<object class="IBUIView" id="918003934">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUITextView" id="930017871">
@@ -212,7 +234,6 @@
 						<int key="NSvFlags">274</int>
 						<string key="NSFrame">{{46, 33}, {471, 48}}</string>
 						<reference key="NSSuperview" ref="918003934"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="309195930"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="837036137"/>
@@ -243,7 +264,6 @@
 						<int key="NSvFlags">274</int>
 						<string key="NSFrame">{{46, 89}, {471, 114}}</string>
 						<reference key="NSSuperview" ref="918003934"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="271927677"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<reference key="IBUIBackgroundColor" ref="837036137"/>
@@ -274,7 +294,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{243, 254}, {77, 44}}</string>
 						<reference key="NSSuperview" ref="918003934"/>
-						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -293,8 +312,6 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{563, 317}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="930017871"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<object class="NSColor" key="IBUIBackgroundColor">
@@ -338,6 +355,14 @@
 						<reference key="destination" ref="414909445"/>
 					</object>
 					<int key="connectionID">161</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">rootStyleTableView</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="394518893"/>
+					</object>
+					<int key="connectionID">252</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -388,6 +413,22 @@
 						<reference key="destination" ref="841351856"/>
 					</object>
 					<int key="connectionID">142</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="394518893"/>
+						<reference key="destination" ref="841351856"/>
+					</object>
+					<int key="connectionID">250</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">dataSource</string>
+						<reference key="source" ref="394518893"/>
+						<reference key="destination" ref="841351856"/>
+					</object>
+					<int key="connectionID">251</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -473,6 +514,7 @@
 						<array class="NSMutableArray" key="children">
 							<reference ref="414909445"/>
 							<reference ref="361738491"/>
+							<reference ref="394518893"/>
 						</array>
 						<reference key="parent" ref="334643471"/>
 					</object>
@@ -486,6 +528,11 @@
 						<reference key="object" ref="361738491"/>
 						<reference key="parent" ref="526933429"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">249</int>
+						<reference key="object" ref="394518893"/>
+						<reference key="parent" ref="526933429"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -497,6 +544,7 @@
 				<string key="139.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="248.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="249.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="26.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="31.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="32.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -509,7 +557,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">248</int>
+			<int key="maxID">252</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -533,6 +581,7 @@
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="colorTableView">UITableView</string>
 						<string key="popupView">UIView</string>
+						<string key="rootStyleTableView">UITableView</string>
 						<string key="styleTableView">UITableView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
@@ -543,6 +592,10 @@
 						<object class="IBToOneOutletInfo" key="popupView">
 							<string key="name">popupView</string>
 							<string key="candidateClassName">UIView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="rootStyleTableView">
+							<string key="name">rootStyleTableView</string>
+							<string key="candidateClassName">UITableView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="styleTableView">
 							<string key="name">styleTableView</string>
