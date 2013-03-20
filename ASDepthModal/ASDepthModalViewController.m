@@ -114,7 +114,6 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
 {
     UIWindow *window;
     CGRect frame;
-    UIButton *dismissButton;
     
     if(color != nil)
     {
@@ -161,10 +160,8 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
     self.coverView.backgroundColor = [UIColor colorWithRed:00/255.0 green:00/255.0 blue:00/255.0 alpha:0.5];
     [self.view addSubview:self.coverView];
     
-    dismissButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    dismissButton.frame = self.coverView.bounds;
-    [dismissButton addTarget:self action:@selector(handleCloseAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.coverView addSubview:dismissButton];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleCloseAction:)];
+    [self.coverView addGestureRecognizer:tapGesture];
     
     [self.coverView addSubview:self.popupView];
     self.popupView.center = CGPointMake(self.coverView.bounds.size.width/2, self.coverView.bounds.size.height/2);
