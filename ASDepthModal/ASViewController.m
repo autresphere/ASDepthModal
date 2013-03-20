@@ -61,6 +61,9 @@
     NSInteger colorConfigurationIndex;
     NSInteger styleConfigurationIndex;
     
+    BOOL isBlurred = YES;
+    
+    
     colorConfigurationIndex = [self.colorTableView indexPathForSelectedRow].row;
     if(colorConfigurationIndex == 1)
     {
@@ -81,7 +84,7 @@
         style = ASDepthModalAnimationNone;
     }
     
-    [ASDepthModalViewController presentView:self.popupView withBackgroundColor:color popupAnimationStyle:style];
+    [ASDepthModalViewController presentView:self.popupView withBackgroundColor:color popupAnimationStyle:style Blur:isBlurred];
 }
 
 - (IBAction)closePopupAction:(id)sender

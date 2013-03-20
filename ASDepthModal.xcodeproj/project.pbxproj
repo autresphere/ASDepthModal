@@ -23,6 +23,10 @@
 		4A0C337C161C8AFB00362314 /* pattern1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4A0C337B161C8AFB00362314 /* pattern1.jpg */; };
 		4AA4DC99165CCC2200F326CA /* license in Resources */ = {isa = PBXBuildFile; fileRef = 4AA4DC98165CCC2200F326CA /* license */; };
 		4AED89E1161D889800D227B3 /* ASViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AED89DF161D889800D227B3 /* ASViewController.xib */; };
+		96989BEC16FA369900646496 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96989BEB16FA369900646496 /* CoreImage.framework */; };
+		96989BF216FA36EC00646496 /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = 96989BF116FA36EC00646496 /* UIImage+Blur.m */; };
+		96989BF416FA372C00646496 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96989BF316FA372C00646496 /* Accelerate.framework */; };
+		96989BF716FA376400646496 /* ASBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96989BF616FA376400646496 /* ASBlurView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +53,12 @@
 		4AA4DC98165CCC2200F326CA /* license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = license; sourceTree = "<group>"; };
 		4AED89E0161D889800D227B3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ASViewController.xib; sourceTree = "<group>"; };
 		4AED89E4161D9DA500D227B3 /* Readme.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = Readme.md; sourceTree = "<group>"; };
+		96989BEB16FA369900646496 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		96989BF016FA36EC00646496 /* UIImage+Blur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Blur.h"; sourceTree = "<group>"; };
+		96989BF116FA36EC00646496 /* UIImage+Blur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Blur.m"; sourceTree = "<group>"; };
+		96989BF316FA372C00646496 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		96989BF516FA376300646496 /* ASBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASBlurView.h; sourceTree = "<group>"; };
+		96989BF616FA376400646496 /* ASBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASBlurView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +66,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96989BF416FA372C00646496 /* Accelerate.framework in Frameworks */,
+				96989BEC16FA369900646496 /* CoreImage.framework in Frameworks */,
 				4A0C337A161C761100362314 /* QuartzCore.framework in Frameworks */,
 				4A0C3351161C6A5800362314 /* UIKit.framework in Frameworks */,
 				4A0C3353161C6A5800362314 /* Foundation.framework in Frameworks */,
@@ -88,6 +100,8 @@
 		4A0C334F161C6A5800362314 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				96989BF316FA372C00646496 /* Accelerate.framework */,
+				96989BEB16FA369900646496 /* CoreImage.framework */,
 				4A0C3379161C761100362314 /* QuartzCore.framework */,
 				4A0C3350161C6A5800362314 /* UIKit.framework */,
 				4A0C3352161C6A5800362314 /* Foundation.framework */,
@@ -99,6 +113,10 @@
 		4A0C3356161C6A5800362314 /* ASDepthModal */ = {
 			isa = PBXGroup;
 			children = (
+				96989BF016FA36EC00646496 /* UIImage+Blur.h */,
+				96989BF116FA36EC00646496 /* UIImage+Blur.m */,
+				96989BF516FA376300646496 /* ASBlurView.h */,
+				96989BF616FA376400646496 /* ASBlurView.m */,
 				4A0C335F161C6A5800362314 /* ASAppDelegate.h */,
 				4A0C3360161C6A5800362314 /* ASAppDelegate.m */,
 				4A0C3368161C6A5800362314 /* ASViewController.h */,
@@ -201,6 +219,8 @@
 				4A0C3361161C6A5800362314 /* ASAppDelegate.m in Sources */,
 				4A0C336A161C6A5800362314 /* ASViewController.m in Sources */,
 				4A0C3375161C6AAA00362314 /* ASDepthModalViewController.m in Sources */,
+				96989BF216FA36EC00646496 /* UIImage+Blur.m in Sources */,
+				96989BF716FA376400646496 /* ASBlurView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
