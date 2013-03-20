@@ -161,6 +161,7 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
     [self.view addSubview:self.coverView];
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleCloseAction:)];
+    [tapGesture setDelegate:self];
     [self.coverView addGestureRecognizer:tapGesture];
     
     [self.coverView addSubview:self.popupView];
@@ -184,6 +185,12 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
                          _blurView.alpha=1.f;
                      }];
     [self animatePopupWithStyle:popupAnimationStyle];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    if (touch.view == self.coverView)
+        return YES;
+    return NO;
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
