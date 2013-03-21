@@ -70,10 +70,12 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
                      animations:^{
                          self.coverView.alpha = 0;
                          self.rootViewController.view.transform = CGAffineTransformIdentity;
+                         self.rootViewController.view.layer.cornerRadius = 0.f;
                          self.popupView.transform = self.initialPopupTransform;
                          _blurView.alpha=0.f;
                      }
                      completion:^(BOOL finished) {
+                         [self.rootViewController.view.layer setMasksToBounds:NO];
                          [_blurView removeFromSuperview];
                          [self restoreRootViewController];
                      }];
@@ -178,8 +180,10 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
         [self.rootViewController.view addSubview:_blurView];
     }
     
+    [self.rootViewController.view.layer setMasksToBounds:YES];
     [UIView animateWithDuration:kModalViewAnimationDuration
                      animations:^{
+                         self.rootViewController.view.layer.cornerRadius = 12.f;
                          self.rootViewController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
                          self.coverView.alpha = 1;
                          _blurView.alpha=1.f;
