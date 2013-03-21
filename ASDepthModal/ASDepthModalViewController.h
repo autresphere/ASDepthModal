@@ -37,9 +37,9 @@ typedef enum
 /*
 Mostly inspired by http://lab.hakim.se/avgrund/
 */
-@interface ASDepthModalViewController : UIViewController
+@interface ASDepthModalViewController : UIViewController <UIGestureRecognizerDelegate>
 
-+ (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color popupAnimationStyle:(ASDepthModalAnimationStyle)popupAnimationStyle;
++ (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color popupAnimationStyle:(ASDepthModalAnimationStyle)popupAnimationStyle Blur:(BOOL)isBlurred;
 + (void)presentView:(UIView *)view;
 + (void)dismiss;
 

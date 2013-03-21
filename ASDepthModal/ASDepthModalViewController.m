@@ -25,6 +25,7 @@
 // THE SOFTWARE.
 
 #import "ASDepthModalViewController.h"
+#import "ASBlurView.h"
 
 @interface ASDepthModalViewController ()
 @property (nonatomic, strong) UIViewController *rootViewController;
@@ -64,13 +65,18 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
 
 - (void)dismiss
 {
+    ASBlurView *_blurView = (ASBlurView *) [self.rootViewController.view viewWithTag:1144];
     [UIView animateWithDuration:kModalViewAnimationDuration
                      animations:^{
                          self.coverView.alpha = 0;
                          self.rootViewController.view.transform = CGAffineTransformIdentity;
+                         self.rootViewController.view.layer.cornerRadius = 0.f;
                          self.popupView.transform = self.initialPopupTransform;
+                         _blurView.alpha=0.f;
                      }
                      completion:^(BOOL finished) {
+                         [self.rootViewController.view.layer setMasksToBounds:NO];
+                         [_blurView removeFromSuperview];
                          [self restoreRootViewController];
                      }];
 }
@@ -106,11 +112,10 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
     }
 }
 
-- (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color popupAnimationStyle:(ASDepthModalAnimationStyle)popupAnimationStyle;
+- (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color popupAnimationStyle:(ASDepthModalAnimationStyle)popupAnimationStyle Blur:(BOOL)isBlurred;
 {
     UIWindow *window;
     CGRect frame;
-    UIButton *dismissButton;
     
     if(color != nil)
     {
@@ -119,6 +124,8 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
     
     window = [UIApplication sharedApplication].keyWindow;
     self.rootViewController = window.rootViewController;
+    
+    
     frame = self.rootViewController.view.frame;
     if(![UIApplication sharedApplication].isStatusBarHidden)
     {
@@ -155,21 +162,39 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
     self.coverView.backgroundColor = [UIColor colorWithRed:00/255.0 green:00/255.0 blue:00/255.0 alpha:0.5];
     [self.view addSubview:self.coverView];
     
-    dismissButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    dismissButton.frame = self.coverView.bounds;
-    [dismissButton addTarget:self action:@selector(handleCloseAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.coverView addSubview:dismissButton];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleCloseAction:)];
+    [tapGesture setDelegate:self];
+    [self.coverView addGestureRecognizer:tapGesture];
     
     [self.coverView addSubview:self.popupView];
     self.popupView.center = CGPointMake(self.coverView.bounds.size.width/2, self.coverView.bounds.size.height/2);
     
     self.coverView.alpha = 0;
+    
+    ASBlurView *_blurView = nil;
+    
+    if (isBlurred) {
+        _blurView = [[ASBlurView alloc] initWithCoverView:self.rootViewController.view];
+        _blurView.alpha = 0.f;
+        _blurView.tag = 1144;
+        [self.rootViewController.view addSubview:_blurView];
+    }
+    
+    [self.rootViewController.view.layer setMasksToBounds:YES];
     [UIView animateWithDuration:kModalViewAnimationDuration
                      animations:^{
+                         self.rootViewController.view.layer.cornerRadius = 12.f;
                          self.rootViewController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
                          self.coverView.alpha = 1;
+                         _blurView.alpha=1.f;
                      }];
     [self animatePopupWithStyle:popupAnimationStyle];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    if (touch.view == self.coverView)
+        return YES;
+    return NO;
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
@@ -181,15 +206,15 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
 
 + (void)presentView:(UIView *)view
 {
-    [self presentView:view withBackgroundColor:nil popupAnimationStyle:ASDepthModalAnimationDefault];
+    [self presentView:view withBackgroundColor:nil popupAnimationStyle:ASDepthModalAnimationDefault Blur:YES];
 }
 
-+ (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color popupAnimationStyle:(ASDepthModalAnimationStyle)popupAnimationStyle;
++ (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color popupAnimationStyle:(ASDepthModalAnimationStyle)popupAnimationStyle Blur:(BOOL)isBlurred;
 {
     ASDepthModalViewController *modalViewController;
     
     modalViewController = [[ASDepthModalViewController alloc] init];
-    [modalViewController presentView:view withBackgroundColor:(UIColor *)color popupAnimationStyle:popupAnimationStyle];
+    [modalViewController presentView:view withBackgroundColor:(UIColor *)color popupAnimationStyle:popupAnimationStyle Blur:isBlurred];
 }
 
 + (void)dismiss

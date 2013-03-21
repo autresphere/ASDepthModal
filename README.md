@@ -1,5 +1,5 @@
 ## ASDepthModal
-ASDepthModal is mostly inspired by a nice CSS work from http://lab.hakim.se/avgrund/ (although ASDepthModal does not provide any blur effect).
+ASDepthModal is mostly inspired by a nice CSS work from http://lab.hakim.se/avgrund/ (Now provides blur effect).
 
 It gives a sense of depth between the current fullscreen view which is sent backward and a modal popup view which appears in front.
 
