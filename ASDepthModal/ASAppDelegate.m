@@ -7,7 +7,7 @@
 //
 
 #import "ASAppDelegate.h"
-#import "ASViewController.h"
+#import "ASMainViewController.h"
 
 // You can use either a basic UIViewController or a UINavigationController as the root view controller.
 #define USE_NAVIGATION_CONTROLLER 0
@@ -17,7 +17,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.viewController = [[ASViewController alloc] initWithNibName:@"ASViewController" bundle:nil];
+    self.viewController = [[ASMainViewController alloc] initWithNibName:@"ASMainViewController" bundle:nil];
     self.window.rootViewController = self.viewController;
     
 #if USE_NAVIGATION_CONTROLLER

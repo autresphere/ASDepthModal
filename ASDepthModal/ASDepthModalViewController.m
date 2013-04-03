@@ -25,21 +25,24 @@
 // THE SOFTWARE.
 
 #import "ASDepthModalViewController.h"
-#import "ASBlurView.h"
+#import <QuartzCore/QuartzCore.h>
+#import "UIImage+Blur.h"
 
 @interface ASDepthModalViewController ()
 @property (nonatomic, strong) UIViewController *rootViewController;
 @property (nonatomic, strong) UIView *coverView;
 @property (nonatomic, strong) UIView *popupView;
-@property (nonatomic, assign) CGAffineTransform initialPopupTransform;;
+@property (nonatomic, assign) CGAffineTransform initialPopupTransform;
+@property (nonatomic, strong) UIImageView *blurView;
+
 @end
 
 static NSTimeInterval const kModalViewAnimationDuration = 0.3;
+static CGFloat const kBlurValue = 0.2;
+static CGFloat const kDefaultiPhoneCornerRadius = 4;
+static CGFloat const kDefaultiPadCornerRadius = 6;
 
 @implementation ASDepthModalViewController
-@synthesize popupView;
-@synthesize rootViewController;
-@synthesize coverView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -65,19 +68,18 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
 
 - (void)dismiss
 {
-    ASBlurView *_blurView = (ASBlurView *) [self.rootViewController.view viewWithTag:1144];
     [UIView animateWithDuration:kModalViewAnimationDuration
                      animations:^{
                          self.coverView.alpha = 0;
                          self.rootViewController.view.transform = CGAffineTransformIdentity;
-                         self.rootViewController.view.layer.cornerRadius = 0.f;
                          self.popupView.transform = self.initialPopupTransform;
-                         _blurView.alpha=0.f;
+                         self.blurView.alpha = 0;
                      }
                      completion:^(BOOL finished) {
                          [self.rootViewController.view.layer setMasksToBounds:NO];
-                         [_blurView removeFromSuperview];
+                         [self.blurView removeFromSuperview];
                          [self restoreRootViewController];
+                         self.rootViewController.view.layer.cornerRadius = 0;
                      }];
 }
 
@@ -112,7 +114,7 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
     }
 }
 
-- (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color popupAnimationStyle:(ASDepthModalAnimationStyle)popupAnimationStyle Blur:(BOOL)isBlurred;
+- (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color popupAnimationStyle:(ASDepthModalAnimationStyle)popupAnimationStyle blur:(BOOL)isBlurred;
 {
     UIWindow *window;
     CGRect frame;
@@ -129,6 +131,7 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
     frame = self.rootViewController.view.frame;
     if(![UIApplication sharedApplication].isStatusBarHidden)
     {
+        self.rootViewController.view.layer.cornerRadius = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad?kDefaultiPadCornerRadius:kDefaultiPhoneCornerRadius);
         // Take care of the status bar only if the frame is full screen, which depends on the View controller type.
         // For example, frame is full screen with UINavigationController, but not with basic UIViewController.
         if(UIInterfaceOrientationIsPortrait(self.rootViewController.interfaceOrientation))
@@ -163,7 +166,7 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
     [self.view addSubview:self.coverView];
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleCloseAction:)];
-    [tapGesture setDelegate:self];
+    tapGesture.delegate = self;
     [self.coverView addGestureRecognizer:tapGesture];
     
     [self.coverView addSubview:self.popupView];
@@ -171,25 +174,41 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
     
     self.coverView.alpha = 0;
     
-    ASBlurView *_blurView = nil;
-    
     if (isBlurred) {
-        _blurView = [[ASBlurView alloc] initWithCoverView:self.rootViewController.view];
-        _blurView.alpha = 0.f;
-        _blurView.tag = 1144;
-        [self.rootViewController.view addSubview:_blurView];
+        UIImage *image;
+        
+        image = [self screenshotForView:self.rootViewController.view];
+        image = [image boxblurImageWithBlur:kBlurValue];
+        self.blurView = [[UIImageView alloc] initWithImage:image];
+        self.blurView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        self.blurView.alpha = 0;
+        [self.rootViewController.view addSubview:self.blurView];
     }
     
     [self.rootViewController.view.layer setMasksToBounds:YES];
     [UIView animateWithDuration:kModalViewAnimationDuration
                      animations:^{
-                         self.rootViewController.view.layer.cornerRadius = 12.f;
                          self.rootViewController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
                          self.coverView.alpha = 1;
-                         _blurView.alpha=1.f;
+                         self.blurView.alpha = 1;
                      }];
     [self animatePopupWithStyle:popupAnimationStyle];
 }
+
+- (UIImage*)screenshotForView:(UIView *)view
+{
+    UIGraphicsBeginImageContext(view.bounds.size);
+    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    // hack, helps w/ our colors when blurring
+    NSData *imageData = UIImageJPEGRepresentation(image, 1); // convert to jpeg
+    image = [UIImage imageWithData:imageData];
+    
+    return image;
+}
+
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
     if (touch.view == self.coverView)
@@ -201,20 +220,29 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
 {
     self.rootViewController.view.transform = CGAffineTransformIdentity;
     self.rootViewController.view.bounds = self.view.bounds;
+    if(self.blurView != nil)
+    {
+        UIImage *image;
+        
+        self.blurView.hidden = YES;
+        image = [self screenshotForView:self.rootViewController.view];
+        self.blurView.hidden = NO;
+        self.blurView.image = [image boxblurImageWithBlur:kBlurValue];
+    }
     self.rootViewController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
 }
 
 + (void)presentView:(UIView *)view
 {
-    [self presentView:view withBackgroundColor:nil popupAnimationStyle:ASDepthModalAnimationDefault Blur:YES];
+    [self presentView:view withBackgroundColor:nil popupAnimationStyle:ASDepthModalAnimationDefault blur:YES];
 }
 
-+ (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color popupAnimationStyle:(ASDepthModalAnimationStyle)popupAnimationStyle Blur:(BOOL)isBlurred;
++ (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color popupAnimationStyle:(ASDepthModalAnimationStyle)popupAnimationStyle blur:(BOOL)isBlurred
 {
     ASDepthModalViewController *modalViewController;
     
     modalViewController = [[ASDepthModalViewController alloc] init];
-    [modalViewController presentView:view withBackgroundColor:(UIColor *)color popupAnimationStyle:popupAnimationStyle Blur:isBlurred];
+    [modalViewController presentView:view withBackgroundColor:(UIColor *)color popupAnimationStyle:popupAnimationStyle blur:isBlurred];
 }
 
 + (void)dismiss

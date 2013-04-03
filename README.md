@@ -1,9 +1,11 @@
 ## ASDepthModal
-ASDepthModal is mostly inspired by a nice CSS work from http://lab.hakim.se/avgrund/ (Now provides blur effect).
+ASDepthModal is mostly inspired by a nice CSS work from http://lab.hakim.se/avgrund/.
 
 It gives a sense of depth between the current fullscreen view which is sent backward and a modal popup view which appears in front.
 
 Works on iOS 5 and 6.
+
+The blur effect is a code borrowed from https://github.com/rnystrom/RNBlurModalView.
 
 ![](https://github.com/autresphere/ASDepthModal/raw/master/Screenshots/iPhoneVideo.gif)
 
@@ -29,10 +31,10 @@ If you need to close the popup view by code (you usually have a "close" button f
 ```
 
 ### Configure
-You can configure the background color as well as the effect applied on the popup when it appears ans disappears.
+You can configure the background color as well as the effect applied on the popup when it appears ans disappears. You can also choose whether your underlay view is blurred or not.
 
 ``` objective-c
-[ASDepthModalViewController presentView:yourPopupView withBackgroundColor:color popupAnimationStyle:style];
+[ASDepthModalViewController presentView:yourPopupView withBackgroundColor:color popupAnimationStyle:style blur:flag];
 ```
 Three styles are available : no effect, grow effect or shrink effect.
 

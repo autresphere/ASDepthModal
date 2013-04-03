@@ -11,28 +11,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import <Accelerate/Accelerate.h>
 
-
-#pragma mark - UIView + Screenshot
-
-@implementation UIView (Screenshot)
-
-- (UIImage*)screenshot {
-    UIGraphicsBeginImageContext(self.bounds.size);
-    [self.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    // hack, helps w/ our colors when blurring
-    NSData *imageData = UIImageJPEGRepresentation(image, 1); // convert to jpeg
-    image = [UIImage imageWithData:imageData];
-    
-    return image;
-}
-
-@end
-
-#pragma mark - UIImage + Blur
-
 @implementation UIImage (Blur)
 
 -(UIImage *)boxblurImageWithBlur:(CGFloat)blur {

@@ -16,17 +16,16 @@
 		4A0C3363161C6A5800362314 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A0C3362161C6A5800362314 /* Default.png */; };
 		4A0C3365161C6A5800362314 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A0C3364161C6A5800362314 /* Default@2x.png */; };
 		4A0C3367161C6A5800362314 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A0C3366161C6A5800362314 /* Default-568h@2x.png */; };
-		4A0C336A161C6A5800362314 /* ASViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C3369161C6A5800362314 /* ASViewController.m */; };
-		4A0C336D161C6A5800362314 /* ASViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A0C336B161C6A5800362314 /* ASViewController~ipad.xib */; };
+		4A0C336A161C6A5800362314 /* ASMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C3369161C6A5800362314 /* ASMainViewController.m */; };
+		4A0C336D161C6A5800362314 /* ASMainViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A0C336B161C6A5800362314 /* ASMainViewController~ipad.xib */; };
 		4A0C3375161C6AAA00362314 /* ASDepthModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C3374161C6AAA00362314 /* ASDepthModalViewController.m */; };
 		4A0C337A161C761100362314 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A0C3379161C761100362314 /* QuartzCore.framework */; };
 		4A0C337C161C8AFB00362314 /* pattern1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4A0C337B161C8AFB00362314 /* pattern1.jpg */; };
 		4AA4DC99165CCC2200F326CA /* license in Resources */ = {isa = PBXBuildFile; fileRef = 4AA4DC98165CCC2200F326CA /* license */; };
-		4AED89E1161D889800D227B3 /* ASViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AED89DF161D889800D227B3 /* ASViewController.xib */; };
+		4AED89E1161D889800D227B3 /* ASMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AED89DF161D889800D227B3 /* ASMainViewController.xib */; };
 		96989BEC16FA369900646496 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96989BEB16FA369900646496 /* CoreImage.framework */; };
 		96989BF216FA36EC00646496 /* UIImage+Blur.m in Sources */ = {isa = PBXBuildFile; fileRef = 96989BF116FA36EC00646496 /* UIImage+Blur.m */; };
 		96989BF416FA372C00646496 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96989BF316FA372C00646496 /* Accelerate.framework */; };
-		96989BF716FA376400646496 /* ASBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 96989BF616FA376400646496 /* ASBlurView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,22 +42,20 @@
 		4A0C3362161C6A5800362314 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		4A0C3364161C6A5800362314 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		4A0C3366161C6A5800362314 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		4A0C3368161C6A5800362314 /* ASViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASViewController.h; sourceTree = "<group>"; };
-		4A0C3369161C6A5800362314 /* ASViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASViewController.m; sourceTree = "<group>"; };
-		4A0C336C161C6A5800362314 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/ASViewController~ipad.xib"; sourceTree = "<group>"; };
+		4A0C3368161C6A5800362314 /* ASMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASMainViewController.h; sourceTree = "<group>"; };
+		4A0C3369161C6A5800362314 /* ASMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASMainViewController.m; sourceTree = "<group>"; };
+		4A0C336C161C6A5800362314 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/ASMainViewController~ipad.xib"; sourceTree = "<group>"; };
 		4A0C3373161C6AAA00362314 /* ASDepthModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASDepthModalViewController.h; sourceTree = "<group>"; };
 		4A0C3374161C6AAA00362314 /* ASDepthModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASDepthModalViewController.m; sourceTree = "<group>"; };
 		4A0C3379161C761100362314 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4A0C337B161C8AFB00362314 /* pattern1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pattern1.jpg; sourceTree = "<group>"; };
 		4AA4DC98165CCC2200F326CA /* license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = license; sourceTree = "<group>"; };
-		4AED89E0161D889800D227B3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ASViewController.xib; sourceTree = "<group>"; };
+		4AED89E0161D889800D227B3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ASMainViewController.xib; sourceTree = "<group>"; };
 		4AED89E4161D9DA500D227B3 /* Readme.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = Readme.md; sourceTree = "<group>"; };
 		96989BEB16FA369900646496 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		96989BF016FA36EC00646496 /* UIImage+Blur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Blur.h"; sourceTree = "<group>"; };
 		96989BF116FA36EC00646496 /* UIImage+Blur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Blur.m"; sourceTree = "<group>"; };
 		96989BF316FA372C00646496 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
-		96989BF516FA376300646496 /* ASBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASBlurView.h; sourceTree = "<group>"; };
-		96989BF616FA376400646496 /* ASBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASBlurView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,14 +112,12 @@
 			children = (
 				96989BF016FA36EC00646496 /* UIImage+Blur.h */,
 				96989BF116FA36EC00646496 /* UIImage+Blur.m */,
-				96989BF516FA376300646496 /* ASBlurView.h */,
-				96989BF616FA376400646496 /* ASBlurView.m */,
 				4A0C335F161C6A5800362314 /* ASAppDelegate.h */,
 				4A0C3360161C6A5800362314 /* ASAppDelegate.m */,
-				4A0C3368161C6A5800362314 /* ASViewController.h */,
-				4A0C3369161C6A5800362314 /* ASViewController.m */,
-				4AED89DF161D889800D227B3 /* ASViewController.xib */,
-				4A0C336B161C6A5800362314 /* ASViewController~ipad.xib */,
+				4A0C3368161C6A5800362314 /* ASMainViewController.h */,
+				4A0C3369161C6A5800362314 /* ASMainViewController.m */,
+				4AED89DF161D889800D227B3 /* ASMainViewController.xib */,
+				4A0C336B161C6A5800362314 /* ASMainViewController~ipad.xib */,
 				4A0C3373161C6AAA00362314 /* ASDepthModalViewController.h */,
 				4A0C3374161C6AAA00362314 /* ASDepthModalViewController.m */,
 				4A0C337B161C8AFB00362314 /* pattern1.jpg */,
@@ -201,9 +196,9 @@
 				4A0C3363161C6A5800362314 /* Default.png in Resources */,
 				4A0C3365161C6A5800362314 /* Default@2x.png in Resources */,
 				4A0C3367161C6A5800362314 /* Default-568h@2x.png in Resources */,
-				4A0C336D161C6A5800362314 /* ASViewController~ipad.xib in Resources */,
+				4A0C336D161C6A5800362314 /* ASMainViewController~ipad.xib in Resources */,
 				4A0C337C161C8AFB00362314 /* pattern1.jpg in Resources */,
-				4AED89E1161D889800D227B3 /* ASViewController.xib in Resources */,
+				4AED89E1161D889800D227B3 /* ASMainViewController.xib in Resources */,
 				4AA4DC99165CCC2200F326CA /* license in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -217,10 +212,9 @@
 			files = (
 				4A0C335D161C6A5800362314 /* main.m in Sources */,
 				4A0C3361161C6A5800362314 /* ASAppDelegate.m in Sources */,
-				4A0C336A161C6A5800362314 /* ASViewController.m in Sources */,
+				4A0C336A161C6A5800362314 /* ASMainViewController.m in Sources */,
 				4A0C3375161C6AAA00362314 /* ASDepthModalViewController.m in Sources */,
 				96989BF216FA36EC00646496 /* UIImage+Blur.m in Sources */,
-				96989BF716FA376400646496 /* ASBlurView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,20 +229,20 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		4A0C336B161C6A5800362314 /* ASViewController~ipad.xib */ = {
+		4A0C336B161C6A5800362314 /* ASMainViewController~ipad.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				4A0C336C161C6A5800362314 /* en */,
 			);
-			name = "ASViewController~ipad.xib";
+			name = "ASMainViewController~ipad.xib";
 			sourceTree = "<group>";
 		};
-		4AED89DF161D889800D227B3 /* ASViewController.xib */ = {
+		4AED89DF161D889800D227B3 /* ASMainViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				4AED89E0161D889800D227B3 /* en */,
 			);
-			name = ASViewController.xib;
+			name = ASMainViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

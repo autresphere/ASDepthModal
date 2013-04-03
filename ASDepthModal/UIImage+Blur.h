@@ -9,10 +9,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIView (Screenshot)
-- (UIImage*)screenshot;
-@end
-
 @interface UIImage (Blur)
 -(UIImage *)boxblurImageWithBlur:(CGFloat)blur;
 @end

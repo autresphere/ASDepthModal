@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class ASViewController;
+@class ASMainViewController;
 
 @interface ASAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) ASViewController *viewController;
+@property (strong, nonatomic) ASMainViewController *viewController;
 
 @end

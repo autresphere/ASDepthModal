@@ -1,21 +1,21 @@
 //
-//  ASViewController.m
+//  ASMainViewController.m
 //  ASDepthModal
 //
 //  Created by Philippe Converset on 03/10/12.
 //  Copyright (c) 2012 AutreSphere. All rights reserved.
 //
 
-#import "ASViewController.h"
+#import "ASMainViewController.h"
 #import "ASDepthModalViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface ASViewController ()
+@interface ASMainViewController ()
 @property (nonatomic, strong) NSArray *configurationColors;
 @property (nonatomic, strong) NSArray *configurationStyles;
 @end
 
-@implementation ASViewController
+@implementation ASMainViewController
 @synthesize configurationColors;
 
 - (void)setupConfigurations
@@ -47,23 +47,14 @@
     scrollView.alwaysBounceVertical = NO;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - Actions
 - (IBAction)showModalViewAction:(id)sender
 {
     UIColor *color = nil;
     ASDepthModalAnimationStyle style = ASDepthModalAnimationDefault;
     NSInteger colorConfigurationIndex;
-    NSInteger styleConfigurationIndex;
-    
-    BOOL isBlurred = YES;
-    
-    
+    NSInteger styleConfigurationIndex;    
+        
     colorConfigurationIndex = [self.colorTableView indexPathForSelectedRow].row;
     if(colorConfigurationIndex == 1)
     {
@@ -83,8 +74,8 @@
     {
         style = ASDepthModalAnimationNone;
     }
-    
-    [ASDepthModalViewController presentView:self.popupView withBackgroundColor:color popupAnimationStyle:style Blur:isBlurred];
+
+    [ASDepthModalViewController presentView:self.popupView withBackgroundColor:color popupAnimationStyle:style blur:self.blurSwitch.on];
 }
 
 - (IBAction)closePopupAction:(id)sender
@@ -135,4 +126,8 @@
     return cell;
 }
 
+- (void)viewDidUnload {
+    [self setBlurSwitch:nil];
+    [super viewDidUnload];
+}
 @end
