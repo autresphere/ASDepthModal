@@ -1,7 +1,7 @@
 ## ASDepthModal
 ASDepthModal is mostly inspired by a nice CSS work from http://lab.hakim.se/avgrund/.
 
-It gives a sense of depth between the current fullscreen view which is sent backward and a modal popup view which appears in front.
+It gives a sense of depth between the current fullscreen view which is sent backward with a blur effect and a modal popup view which appears in front.
 
 Works on iOS 5 and 6.
 
