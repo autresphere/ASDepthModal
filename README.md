@@ -14,7 +14,7 @@ Download the whole project and run it under Xcode. You can choose either iPhone 
 It supports all orientations change.
 
 ## Use it
-Just copy ASDepthModalViewController.h and ASDepthModalViewController.m in your project and `#import "ASDepthModalViewController.h"` where you need it.
+Just copy ASDepthModalViewController.h, ASDepthModalViewController.m, UIImage+Blur.h and UIImage+Blur.m in your project and `#import "ASDepthModalViewController.h"` where you need it.
 
 ### Show
 Once you have your popup view, here is how you would present it
