@@ -26,20 +26,27 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum
-{
-    ASDepthModalAnimationGrow = 0,
-    ASDepthModalAnimationShrink,
-    ASDepthModalAnimationNone,
-    ASDepthModalAnimationDefault = ASDepthModalAnimationGrow,
-} ASDepthModalAnimationStyle;
+typedef NS_OPTIONS(NSUInteger, ASDepthModalOptions) {
+    ASDepthModalOptionAnimationGrow     = 1 << 0,
+    ASDepthModalOptionAnimationShrink   = 1 << 1,
+    ASDepthModalOptionAnimationNone     = 1 << 2,
+    ASDepthModalOptionBlur              = 1 << 3,
+    ASDepthModalOptionBlurNone          = 1 << 4,
+    ASDepthModalOptionTapOutsideToClose = 1 << 5,
+    ASDepthModalOptionTapOutsideInactive= 1 << 6
+};
+
+typedef void(^ASDepthModalCompletionHandler)(void);
 
 /*
 Mostly inspired by http://lab.hakim.se/avgrund/
 */
 @interface ASDepthModalViewController : UIViewController <UIGestureRecognizerDelegate>
 
-+ (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color popupAnimationStyle:(ASDepthModalAnimationStyle)popupAnimationStyle blur:(BOOL)isBlurred;
++ (NSInteger)optionsWithStyle:(ASDepthModalOptions)style blur:(BOOL)blur tapOutsideToClose:(BOOL)tapToClose; // Helper method to create the options
+
++ (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color options:(NSInteger)options completionHandler:(ASDepthModalCompletionHandler) handler;
+
 + (void)presentView:(UIView *)view;
 + (void)dismiss;
 
