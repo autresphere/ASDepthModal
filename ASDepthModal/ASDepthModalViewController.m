@@ -35,6 +35,8 @@
 @property (nonatomic, assign) CGAffineTransform initialPopupTransform;
 @property (nonatomic, strong) UIImageView *blurView;
 
+@property (nonatomic) BOOL shouldDismissOnTapOutside;
+
 @end
 
 static NSTimeInterval const kModalViewAnimationDuration = 0.3;
@@ -83,10 +85,14 @@ static CGFloat const kDefaultiPadCornerRadius = 6;
                      }];
 }
 
-- (void)animatePopupWithStyle:(ASDepthModalAnimationStyle)style
+- (void)animatePopupWithStyle:(ASDepthModalOptions)options
 {
-    switch (style) {
-        case ASDepthModalAnimationGrow:
+    options = (options & ASDepthModalOptionAnimationGrow) |
+            (options & ASDepthModalOptionAnimationShrink) |
+            (options & ASDepthModalOptionAnimationNone);
+    
+    switch (options) {
+        case ASDepthModalOptionAnimationGrow:
         {
             self.popupView.transform = CGAffineTransformMakeScale(0.8, 0.8);
             self.initialPopupTransform = self.popupView.transform;
@@ -97,7 +103,7 @@ static CGFloat const kDefaultiPadCornerRadius = 6;
         }
             break;
             
-        case ASDepthModalAnimationShrink:
+        case ASDepthModalOptionAnimationShrink:
         {
             self.popupView.transform = CGAffineTransformMakeScale(1.5, 1.5);
             self.initialPopupTransform = self.popupView.transform;
@@ -114,7 +120,7 @@ static CGFloat const kDefaultiPadCornerRadius = 6;
     }
 }
 
-- (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color popupAnimationStyle:(ASDepthModalAnimationStyle)popupAnimationStyle blur:(BOOL)isBlurred;
+- (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color options:(NSInteger)options;
 {
     UIWindow *window;
     CGRect frame;
@@ -174,6 +180,8 @@ static CGFloat const kDefaultiPadCornerRadius = 6;
     
     self.coverView.alpha = 0;
     
+    
+    BOOL isBlurred = (options & ASDepthModalOptionBlur) == ASDepthModalOptionBlur;
     if (isBlurred) {
         UIImage *image;
         
@@ -192,7 +200,7 @@ static CGFloat const kDefaultiPadCornerRadius = 6;
                          self.coverView.alpha = 1;
                          self.blurView.alpha = 1;
                      }];
-    [self animatePopupWithStyle:popupAnimationStyle];
+    [self animatePopupWithStyle:options];
 }
 
 - (UIImage*)screenshotForView:(UIView *)view
@@ -212,7 +220,7 @@ static CGFloat const kDefaultiPadCornerRadius = 6;
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
     if (touch.view == self.coverView)
-        return YES;
+        return self.shouldDismissOnTapOutside;
     return NO;
 }
 
@@ -234,15 +242,37 @@ static CGFloat const kDefaultiPadCornerRadius = 6;
 
 + (void)presentView:(UIView *)view
 {
-    [self presentView:view withBackgroundColor:nil popupAnimationStyle:ASDepthModalAnimationDefault blur:YES];
+    [self presentView:view withBackgroundColor:nil options:ASDepthModalOptionAnimationGrow | ASDepthModalOptionBlur | ASDepthModalOptionTapOutsideToClose];
 }
 
-+ (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color popupAnimationStyle:(ASDepthModalAnimationStyle)popupAnimationStyle blur:(BOOL)isBlurred
++ (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color options:(NSInteger)options
 {
-    ASDepthModalViewController *modalViewController;
+        
+    ASDepthModalViewController *modalViewController = [[ASDepthModalViewController alloc] init];
+
+    modalViewController.shouldDismissOnTapOutside = (options & ASDepthModalOptionTapOutsideToClose) == ASDepthModalOptionTapOutsideToClose;
+    [modalViewController presentView:view withBackgroundColor:(UIColor *)color options:options];
+
+}
+
++ (NSInteger)optionsWithStyle:(ASDepthModalOptions)style blur:(BOOL)blur tapOutsideToClose:(BOOL)tapToClose
+{
+    NSInteger options;
     
-    modalViewController = [[ASDepthModalViewController alloc] init];
-    [modalViewController presentView:view withBackgroundColor:(UIColor *)color popupAnimationStyle:popupAnimationStyle blur:isBlurred];
+    options = (NSInteger)style;
+    
+    if (blur)
+        options |= ASDepthModalOptionBlur;
+    else
+        options |= ASDepthModalOptionBlurNone;
+    
+    
+    if (tapToClose)
+        options |= ASDepthModalOptionTapOutsideToClose;
+    else
+        options |= ASDepthModalOptionTapOutsideInactive;
+    
+    return options;
 }
 
 + (void)dismiss

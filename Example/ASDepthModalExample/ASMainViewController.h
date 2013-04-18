@@ -14,6 +14,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *colorTableView;
 @property (strong, nonatomic) IBOutlet UITableView *styleTableView;
 @property (strong, nonatomic) IBOutlet UISwitch *blurSwitch;
+@property (strong, nonatomic) IBOutlet UISwitch *tapOutsideSwitch;
 
 - (IBAction)showModalViewAction:(id)sender;
 - (IBAction)closePopupAction:(id)sender;

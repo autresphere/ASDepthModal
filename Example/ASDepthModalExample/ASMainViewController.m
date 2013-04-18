@@ -51,7 +51,7 @@
 - (IBAction)showModalViewAction:(id)sender
 {
     UIColor *color = nil;
-    ASDepthModalAnimationStyle style = ASDepthModalAnimationDefault;
+    ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
     NSInteger colorConfigurationIndex;
     NSInteger styleConfigurationIndex;    
         
@@ -68,14 +68,18 @@
     styleConfigurationIndex = [self.styleTableView indexPathForSelectedRow].row;
     if(styleConfigurationIndex == 1)
     {
-        style = ASDepthModalAnimationShrink;
+        style = ASDepthModalOptionAnimationShrink; 
     }
     else if(styleConfigurationIndex == 2)
     {
-        style = ASDepthModalAnimationNone;
+        style = ASDepthModalOptionAnimationNone;
     }
 
-    [ASDepthModalViewController presentView:self.popupView withBackgroundColor:color popupAnimationStyle:style blur:self.blurSwitch.on];
+    ASDepthModalOptions options = [ASDepthModalViewController optionsWithStyle:style blur:self.blurSwitch.on tapOutsideToClose:self.tapOutsideSwitch.on];
+    
+    NSLog(@"Options: %d",options);
+    
+    [ASDepthModalViewController presentView:self.popupView withBackgroundColor:color options:options];
 }
 
 - (IBAction)closePopupAction:(id)sender
@@ -128,6 +132,7 @@
 
 - (void)viewDidUnload {
     [self setBlurSwitch:nil];
+    [self setTapOutsideSwitch:nil];
     [super viewDidUnload];
 }
 @end
