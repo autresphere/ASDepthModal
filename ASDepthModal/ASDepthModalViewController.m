@@ -36,6 +36,7 @@
 @property (nonatomic, strong) UIImageView *blurView;
 
 @property (nonatomic) BOOL shouldDismissOnTapOutside;
+@property (nonatomic, strong) ASDepthModalCompletionHandler completionHandler;
 
 @end
 
@@ -82,6 +83,9 @@ static CGFloat const kDefaultiPadCornerRadius = 6;
                          [self.blurView removeFromSuperview];
                          [self restoreRootViewController];
                          self.rootViewController.view.layer.cornerRadius = 0;
+                         
+                         if (self.completionHandler)
+                             self.completionHandler();
                      }];
 }
 
@@ -242,15 +246,17 @@ static CGFloat const kDefaultiPadCornerRadius = 6;
 
 + (void)presentView:(UIView *)view
 {
-    [self presentView:view withBackgroundColor:nil options:ASDepthModalOptionAnimationGrow | ASDepthModalOptionBlur | ASDepthModalOptionTapOutsideToClose];
+    [self presentView:view withBackgroundColor:nil options:ASDepthModalOptionAnimationGrow | ASDepthModalOptionBlur | ASDepthModalOptionTapOutsideToClose completionHandler:nil];
 }
 
-+ (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color options:(NSInteger)options
++ (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color options:(NSInteger)options completionHandler:(ASDepthModalCompletionHandler) handler
 {
         
     ASDepthModalViewController *modalViewController = [[ASDepthModalViewController alloc] init];
 
     modalViewController.shouldDismissOnTapOutside = (options & ASDepthModalOptionTapOutsideToClose) == ASDepthModalOptionTapOutsideToClose;
+    modalViewController.completionHandler = handler;
+    
     [modalViewController presentView:view withBackgroundColor:(UIColor *)color options:options];
 
 }

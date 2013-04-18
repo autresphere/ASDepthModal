@@ -77,7 +77,7 @@
 
     ASDepthModalOptions options = [ASDepthModalViewController optionsWithStyle:style blur:self.blurSwitch.on tapOutsideToClose:self.tapOutsideSwitch.on];
     
-    [ASDepthModalViewController presentView:self.popupView withBackgroundColor:color options:options];
+    [ASDepthModalViewController presentView:self.popupView withBackgroundColor:color options:options completionHandler:nil];
 }
 
 - (IBAction)closePopupAction:(id)sender

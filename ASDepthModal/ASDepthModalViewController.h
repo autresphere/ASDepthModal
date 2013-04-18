@@ -36,6 +36,8 @@ typedef NS_OPTIONS(NSUInteger, ASDepthModalOptions) {
     ASDepthModalOptionTapOutsideInactive= 1 << 6
 };
 
+typedef void(^ASDepthModalCompletionHandler)(void);
+
 /*
 Mostly inspired by http://lab.hakim.se/avgrund/
 */
@@ -43,7 +45,7 @@ Mostly inspired by http://lab.hakim.se/avgrund/
 
 + (NSInteger)optionsWithStyle:(ASDepthModalOptions)style blur:(BOOL)blur tapOutsideToClose:(BOOL)tapToClose; // Helper method to create the options
 
-+ (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color options:(NSInteger)options;
++ (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color options:(NSInteger)options completionHandler:(ASDepthModalCompletionHandler) handler;
 
 + (void)presentView:(UIView *)view;
 + (void)dismiss;
