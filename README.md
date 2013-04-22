@@ -38,7 +38,10 @@ You can configure the background color as well and different kind of options:
 You can also add some code to execute once the popup is closed.
 
 ``` objective-c
-[ASDepthModalViewController presentView:yourPopupView backgroundColor:color options:options completionHandler:handler];
+[ASDepthModalViewController presentView:yourPopupView
+                        backgroundColor:color
+                                options:options
+                      completionHandler:handler];
 ```
 Three styles are available : no effect, grow effect or shrink effect.
 
