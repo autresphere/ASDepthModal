@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1552</int>
-		<string key="IBDocument.SystemVersion">11G63</string>
+		<string key="IBDocument.SystemVersion">12D78</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1138.51</string>
-		<string key="IBDocument.HIToolboxVersion">569.00</string>
+		<string key="IBDocument.AppKitVersion">1187.37</string>
+		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">2083</string>
@@ -59,7 +59,7 @@
 													<object class="IBUISwitch" id="452823913">
 														<reference key="NSNextResponder" ref="456830232"/>
 														<int key="NSvFlags">292</int>
-														<string key="NSFrame">{{35, 15}, {94, 27}}</string>
+														<string key="NSFrame">{{30, 15}, {94, 27}}</string>
 														<reference key="NSSuperview" ref="456830232"/>
 														<reference key="NSNextKeyView" ref="345342691"/>
 														<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -89,13 +89,13 @@
 														</object>
 														<nil key="IBUIHighlightedColor"/>
 														<int key="IBUIBaselineAdjustment">0</int>
-														<object class="IBUIFontDescription" key="IBUIFontDescription">
+														<object class="IBUIFontDescription" key="IBUIFontDescription" id="262051095">
 															<string key="name">HelveticaNeue-Medium</string>
 															<string key="family">Helvetica Neue</string>
 															<int key="traits">0</int>
 															<double key="pointSize">17</double>
 														</object>
-														<object class="NSFont" key="IBUIFont">
+														<object class="NSFont" key="IBUIFont" id="483772192">
 															<string key="NSName">HelveticaNeue-Medium</string>
 															<double key="NSSize">17</double>
 															<int key="NSfFlags">16</int>
@@ -105,7 +105,7 @@
 													<object class="IBUILabel" id="345342691">
 														<reference key="NSNextResponder" ref="456830232"/>
 														<int key="NSvFlags">292</int>
-														<string key="NSFrame">{{135, 20}, {93, 21}}</string>
+														<string key="NSFrame">{{135, 18}, {96, 22}}</string>
 														<reference key="NSSuperview" ref="456830232"/>
 														<string key="NSReuseIdentifierKey">_NS:9</string>
 														<bool key="IBUIOpaque">NO</bool>
@@ -113,25 +113,18 @@
 														<int key="IBUIContentMode">7</int>
 														<bool key="IBUIUserInteractionEnabled">NO</bool>
 														<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-														<string key="IBUIText">TapOutside</string>
+														<string key="IBUIText">Tap Outside</string>
 														<reference key="IBUITextColor" ref="1007382033"/>
 														<nil key="IBUIHighlightedColor"/>
 														<int key="IBUIBaselineAdjustment">0</int>
-														<object class="IBUIFontDescription" key="IBUIFontDescription">
-															<int key="type">1</int>
-															<double key="pointSize">17</double>
-														</object>
-														<object class="NSFont" key="IBUIFont">
-															<string key="NSName">Helvetica</string>
-															<double key="NSSize">17</double>
-															<int key="NSfFlags">16</int>
-														</object>
+														<reference key="IBUIFontDescription" ref="262051095"/>
+														<reference key="IBUIFont" ref="483772192"/>
 														<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 													</object>
 													<object class="IBUISwitch" id="687771277">
 														<reference key="NSNextResponder" ref="456830232"/>
 														<int key="NSvFlags">292</int>
-														<string key="NSFrame">{{221, 17}, {94, 27}}</string>
+														<string key="NSFrame">{{221, 15}, {94, 27}}</string>
 														<reference key="NSSuperview" ref="456830232"/>
 														<string key="NSReuseIdentifierKey">_NS:9</string>
 														<bool key="IBUIOpaque">NO</bool>
