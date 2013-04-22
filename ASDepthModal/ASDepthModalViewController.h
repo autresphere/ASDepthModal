@@ -36,15 +36,12 @@ typedef NS_OPTIONS(NSUInteger, ASDepthModalOptions) {
     ASDepthModalOptionTapOutsideInactive= 1 << 9
 };
 
-typedef void(^ASDepthModalCompletionHandler)(void);
-
 /*
 Mostly inspired by http://lab.hakim.se/avgrund/
 */
 @interface ASDepthModalViewController : UIViewController <UIGestureRecognizerDelegate>
 
-+ (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color options:(NSInteger)options completionHandler:(ASDepthModalCompletionHandler) handler;
-
++ (void)presentView:(UIView *)view backgroundColor:(UIColor *)color options:(ASDepthModalOptions)options completionHandler:(void(^)())handler;
 + (void)presentView:(UIView *)view;
 + (void)dismiss;
 

@@ -28,9 +28,14 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIImage+Blur.h"
 
-static const NSInteger kDepthModalOptionAnimationMask = 3 << 0;
-static const NSInteger kDepthModalOptionBlurMask = 1 << 8;
-static const NSInteger kDepthModalOptionTapMask = 1 << 9;
+static NSTimeInterval const kModalViewAnimationDuration = 0.3;
+static CGFloat const kBlurValue = 0.2;
+static CGFloat const kDefaultiPhoneCornerRadius = 4;
+static CGFloat const kDefaultiPadCornerRadius = 6;
+
+static NSInteger const kDepthModalOptionAnimationMask = 3 << 0;
+static NSInteger const kDepthModalOptionBlurMask = 1 << 8;
+static NSInteger const kDepthModalOptionTapMask = 1 << 9;
 
 @interface ASDepthModalViewController ()
 @property (nonatomic, strong) UIViewController *rootViewController;
@@ -38,16 +43,8 @@ static const NSInteger kDepthModalOptionTapMask = 1 << 9;
 @property (nonatomic, strong) UIView *popupView;
 @property (nonatomic, assign) CGAffineTransform initialPopupTransform;
 @property (nonatomic, strong) UIImageView *blurView;
-
-@property (nonatomic) BOOL shouldDismissOnTapOutside;
-@property (nonatomic, strong) ASDepthModalCompletionHandler completionHandler;
-
+@property (nonatomic, strong) void(^completionHandler)();
 @end
-
-static NSTimeInterval const kModalViewAnimationDuration = 0.3;
-static CGFloat const kBlurValue = 0.2;
-static CGFloat const kDefaultiPhoneCornerRadius = 4;
-static CGFloat const kDefaultiPadCornerRadius = 6;
 
 @implementation ASDepthModalViewController
 
@@ -88,8 +85,9 @@ static CGFloat const kDefaultiPadCornerRadius = 6;
                          [self restoreRootViewController];
                          self.rootViewController.view.layer.cornerRadius = 0;
                          
-                         if (self.completionHandler)
+                         if (self.completionHandler) {
                              self.completionHandler();
+                         }
                      }];
 }
 
@@ -126,7 +124,7 @@ static CGFloat const kDefaultiPadCornerRadius = 6;
     }
 }
 
-- (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color options:(NSInteger)options;
+- (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color options:(ASDepthModalOptions)options completionHandler:(void(^)())handler
 {
     UIWindow *window;
     CGRect frame;
@@ -135,11 +133,10 @@ static CGFloat const kDefaultiPadCornerRadius = 6;
     {
         self.view.backgroundColor = color;
     }
-    
+    self.completionHandler = handler;
+
     window = [UIApplication sharedApplication].keyWindow;
     self.rootViewController = window.rootViewController;
-    
-    
     frame = self.rootViewController.view.frame;
     if(![UIApplication sharedApplication].isStatusBarHidden)
     {
@@ -177,18 +174,19 @@ static CGFloat const kDefaultiPadCornerRadius = 6;
     self.coverView.backgroundColor = [UIColor colorWithRed:00/255.0 green:00/255.0 blue:00/255.0 alpha:0.5];
     [self.view addSubview:self.coverView];
     
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleCloseAction:)];
-    tapGesture.delegate = self;
-    [self.coverView addGestureRecognizer:tapGesture];
+    if ((options & kDepthModalOptionTapMask) == ASDepthModalOptionTapOutsideToClose)
+    {    
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleCloseAction:)];
+        tapGesture.delegate = self;
+        [self.coverView addGestureRecognizer:tapGesture];
+    }
     
     [self.coverView addSubview:self.popupView];
     self.popupView.center = CGPointMake(self.coverView.bounds.size.width/2, self.coverView.bounds.size.height/2);
     
     self.coverView.alpha = 0;
-    
-    
-    BOOL isBlurred = (options & kDepthModalOptionBlurMask) == ASDepthModalOptionBlur;
-    if (isBlurred) {
+        
+    if ((options & kDepthModalOptionBlurMask) == ASDepthModalOptionBlur) {
         UIImage *image;
         
         image = [self screenshotForView:self.rootViewController.view];
@@ -223,10 +221,9 @@ static CGFloat const kDefaultiPadCornerRadius = 6;
     return image;
 }
 
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
     if (touch.view == self.coverView)
-        return self.shouldDismissOnTapOutside;
+        return YES;
     return NO;
 }
 
@@ -248,18 +245,14 @@ static CGFloat const kDefaultiPadCornerRadius = 6;
 
 + (void)presentView:(UIView *)view
 {
-    [self presentView:view withBackgroundColor:nil options:ASDepthModalOptionAnimationGrow | ASDepthModalOptionBlur | ASDepthModalOptionTapOutsideToClose completionHandler:nil];
+    [self presentView:view backgroundColor:nil options:0 completionHandler:nil];
 }
 
-+ (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color options:(NSInteger)options completionHandler:(ASDepthModalCompletionHandler) handler
++ (void)presentView:(UIView *)view backgroundColor:(UIColor *)color options:(ASDepthModalOptions)options completionHandler:(void(^)())handler
 {
-        
     ASDepthModalViewController *modalViewController = [[ASDepthModalViewController alloc] init];
-
-    modalViewController.shouldDismissOnTapOutside = ((options & kDepthModalOptionTapMask) == ASDepthModalOptionTapOutsideToClose);
-    modalViewController.completionHandler = handler;
     
-    [modalViewController presentView:view withBackgroundColor:(UIColor *)color options:options];
+    [modalViewController presentView:view withBackgroundColor:(UIColor *)color options:options completionHandler:handler];
 }
 
 + (NSInteger)optionsWithStyle:(ASDepthModalOptions)style blur:(BOOL)blur tapOutsideToClose:(BOOL)tapToClose

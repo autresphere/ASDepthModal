@@ -31,10 +31,14 @@ If you need to close the popup view by code (you usually have a "close" button f
 ```
 
 ### Configure
-You can configure the background color as well as the effect applied on the popup when it appears ans disappears. You can also choose whether your underlay view is blurred or not.
+You can configure the background color as well and different kind of options:
+* the effect applied on the popup when it appears ans disappears
+* whether the underlay view is blurred
+* whether a tap outside of the popup closes it.
+You can also add some code to execute once the popup is closed.
 
 ``` objective-c
-[ASDepthModalViewController presentView:yourPopupView withBackgroundColor:color popupAnimationStyle:style blur:flag];
+[ASDepthModalViewController presentView:yourPopupView backgroundColor:color options:options completionHandler:handler];
 ```
 Three styles are available : no effect, grow effect or shrink effect.
 

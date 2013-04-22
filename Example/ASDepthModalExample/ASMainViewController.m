@@ -78,7 +78,12 @@
 
     options = style | (self.blurSwitch.on?ASDepthModalOptionBlur:ASDepthModalOptionBlurNone) | (self.tapOutsideSwitch.on?ASDepthModalOptionTapOutsideToClose:ASDepthModalOptionTapOutsideInactive);
     
-    [ASDepthModalViewController presentView:self.popupView withBackgroundColor:color options:options completionHandler:nil];
+    [ASDepthModalViewController presentView:self.popupView
+                            backgroundColor:color
+                                    options:options
+                          completionHandler:^{
+                              NSLog(@"Modal view closed.");
+                          }];
 }
 
 - (IBAction)closePopupAction:(id)sender
