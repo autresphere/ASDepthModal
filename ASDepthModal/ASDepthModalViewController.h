@@ -27,13 +27,13 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_OPTIONS(NSUInteger, ASDepthModalOptions) {
-    ASDepthModalOptionAnimationGrow     = 1 << 0,
-    ASDepthModalOptionAnimationShrink   = 1 << 1,
-    ASDepthModalOptionAnimationNone     = 1 << 2,
-    ASDepthModalOptionBlur              = 1 << 3,
-    ASDepthModalOptionBlurNone          = 1 << 4,
-    ASDepthModalOptionTapOutsideToClose = 1 << 5,
-    ASDepthModalOptionTapOutsideInactive= 1 << 6
+    ASDepthModalOptionAnimationGrow     = 0 << 0, //default
+    ASDepthModalOptionAnimationShrink   = 1 << 0,
+    ASDepthModalOptionAnimationNone     = 2 << 0,
+    ASDepthModalOptionBlur              = 0 << 8, // default
+    ASDepthModalOptionBlurNone          = 1 << 8,
+    ASDepthModalOptionTapOutsideToClose = 0 << 9, // default
+    ASDepthModalOptionTapOutsideInactive= 1 << 9
 };
 
 typedef void(^ASDepthModalCompletionHandler)(void);
@@ -42,8 +42,6 @@ typedef void(^ASDepthModalCompletionHandler)(void);
 Mostly inspired by http://lab.hakim.se/avgrund/
 */
 @interface ASDepthModalViewController : UIViewController <UIGestureRecognizerDelegate>
-
-+ (NSInteger)optionsWithStyle:(ASDepthModalOptions)style blur:(BOOL)blur tapOutsideToClose:(BOOL)tapToClose; // Helper method to create the options
 
 + (void)presentView:(UIView *)view withBackgroundColor:(UIColor *)color options:(NSInteger)options completionHandler:(ASDepthModalCompletionHandler) handler;
 

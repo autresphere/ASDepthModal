@@ -28,6 +28,10 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIImage+Blur.h"
 
+static const NSInteger kDepthModalOptionAnimationMask = 3 << 0;
+static const NSInteger kDepthModalOptionBlurMask = 1 << 8;
+static const NSInteger kDepthModalOptionTapMask = 1 << 9;
+
 @interface ASDepthModalViewController ()
 @property (nonatomic, strong) UIViewController *rootViewController;
 @property (nonatomic, strong) UIView *coverView;
@@ -91,11 +95,9 @@ static CGFloat const kDefaultiPadCornerRadius = 6;
 
 - (void)animatePopupWithStyle:(ASDepthModalOptions)options
 {
-    options = (options & ASDepthModalOptionAnimationGrow) |
-            (options & ASDepthModalOptionAnimationShrink) |
-            (options & ASDepthModalOptionAnimationNone);
+    NSInteger style = (options & kDepthModalOptionAnimationMask);
     
-    switch (options) {
+    switch (style) {
         case ASDepthModalOptionAnimationGrow:
         {
             self.popupView.transform = CGAffineTransformMakeScale(0.8, 0.8);
@@ -185,7 +187,7 @@ static CGFloat const kDefaultiPadCornerRadius = 6;
     self.coverView.alpha = 0;
     
     
-    BOOL isBlurred = (options & ASDepthModalOptionBlur) == ASDepthModalOptionBlur;
+    BOOL isBlurred = (options & kDepthModalOptionBlurMask) == ASDepthModalOptionBlur;
     if (isBlurred) {
         UIImage *image;
         
@@ -254,11 +256,10 @@ static CGFloat const kDefaultiPadCornerRadius = 6;
         
     ASDepthModalViewController *modalViewController = [[ASDepthModalViewController alloc] init];
 
-    modalViewController.shouldDismissOnTapOutside = (options & ASDepthModalOptionTapOutsideToClose) == ASDepthModalOptionTapOutsideToClose;
+    modalViewController.shouldDismissOnTapOutside = ((options & kDepthModalOptionTapMask) == ASDepthModalOptionTapOutsideToClose);
     modalViewController.completionHandler = handler;
     
     [modalViewController presentView:view withBackgroundColor:(UIColor *)color options:options];
-
 }
 
 + (NSInteger)optionsWithStyle:(ASDepthModalOptions)style blur:(BOOL)blur tapOutsideToClose:(BOOL)tapToClose

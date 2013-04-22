@@ -52,9 +52,10 @@
 {
     UIColor *color = nil;
     ASDepthModalOptions style = ASDepthModalOptionAnimationGrow;
+    ASDepthModalOptions options;
     NSInteger colorConfigurationIndex;
     NSInteger styleConfigurationIndex;    
-        
+    
     colorConfigurationIndex = [self.colorTableView indexPathForSelectedRow].row;
     if(colorConfigurationIndex == 1)
     {
@@ -75,7 +76,7 @@
         style = ASDepthModalOptionAnimationNone;
     }
 
-    ASDepthModalOptions options = [ASDepthModalViewController optionsWithStyle:style blur:self.blurSwitch.on tapOutsideToClose:self.tapOutsideSwitch.on];
+    options = style | (self.blurSwitch.on?ASDepthModalOptionBlur:ASDepthModalOptionBlurNone) | (self.tapOutsideSwitch.on?ASDepthModalOptionTapOutsideToClose:ASDepthModalOptionTapOutsideInactive);
     
     [ASDepthModalViewController presentView:self.popupView withBackgroundColor:color options:options completionHandler:nil];
 }
