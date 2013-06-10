@@ -48,9 +48,9 @@ static NSInteger const kDepthModalOptionTapMask = 1 << 9;
 
 @implementation ASDepthModalViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self)
     {
         self.view.backgroundColor = [UIColor blackColor];
