@@ -16,6 +16,8 @@ It supports all orientations change.
 ## Use it
 Just copy ASDepthModalViewController.h, ASDepthModalViewController.m, UIImage+Blur.h and UIImage+Blur.m in your project and `#import "ASDepthModalViewController.h"` where you need it.
 
+You can also add `pod 'ASDepthModal'` to your Podfile.
+
 ### Show
 Once you have your popup view, here is how you would present it
 ``` objective-c
