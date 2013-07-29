@@ -47,3 +47,6 @@ Three styles are available : no effect, grow effect or shrink effect.
 
 ## ARC Support
 This class requires ARC.
+
+## Dependencies
+QuartzCore and Accelerate frameworks are needed.
