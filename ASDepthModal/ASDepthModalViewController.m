@@ -38,6 +38,7 @@ static NSInteger const kDepthModalOptionBlurMask = 1 << 8;
 static NSInteger const kDepthModalOptionTapMask = 1 << 9;
 
 @interface ASDepthModalViewController ()
+@property (nonatomic, strong) UIViewController *viewProvider;
 @property (nonatomic, strong) UIViewController *rootViewController;
 @property (nonatomic, strong) UIView *coverView;
 @property (nonatomic, strong) UIView *popupView;
@@ -241,6 +242,20 @@ static NSInteger const kDepthModalOptionTapMask = 1 << 9;
         self.blurView.image = [image boxblurImageWithBlur:kBlurValue];
     }
     self.rootViewController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
+}
+
++ (void)presentViewController:(UIViewController *)viewController backgroundColor:(UIColor *)color options:(ASDepthModalOptions)options completionHandler:(void(^)())handler
+{
+    ASDepthModalViewController *modalViewController = [[ASDepthModalViewController alloc] init];
+    modalViewController.viewProvider = viewController;
+    
+    
+    [modalViewController presentView:viewController.view withBackgroundColor:(UIColor *)color options:options completionHandler:handler];
+}
+
++ (void)presentViewController:(UIViewController *)viewController
+{
+    [self presentViewController:viewController backgroundColor:nil options:0 completionHandler:nil];
 }
 
 + (void)presentView:(UIView *)view

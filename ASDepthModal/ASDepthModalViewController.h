@@ -41,6 +41,9 @@ Mostly inspired by http://lab.hakim.se/avgrund/
 */
 @interface ASDepthModalViewController : UIViewController <UIGestureRecognizerDelegate>
 
++ (void)presentViewController:(UIViewController *)viewController backgroundColor:(UIColor *)color options:(ASDepthModalOptions)options completionHandler:(void(^)())handler;
++ (void)presentViewController:(UIViewController *)viewController;
+
 + (void)presentView:(UIView *)view backgroundColor:(UIColor *)color options:(ASDepthModalOptions)options completionHandler:(void(^)())handler;
 + (void)presentView:(UIView *)view;
 + (void)dismiss;
