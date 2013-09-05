@@ -30,6 +30,11 @@ typedef NS_OPTIONS(NSUInteger, ASDepthModalOptions) {
     ASDepthModalOptionAnimationGrow     = 0 << 0, //default
     ASDepthModalOptionAnimationShrink   = 1 << 0,
     ASDepthModalOptionAnimationNone     = 2 << 0,
+    ASDepthModalOptionAnimationDropDown = 3 << 0,
+    
+    ASDepthModalOptionAnimationCloseShrink   = 0 << 4,
+    ASDepthModalOptionAnimationCloseDropDown = 1 << 4,
+    
     ASDepthModalOptionBlur              = 0 << 8, // default
     ASDepthModalOptionBlurNone          = 1 << 8,
     ASDepthModalOptionTapOutsideToClose = 0 << 9, // default
