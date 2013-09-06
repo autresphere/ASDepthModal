@@ -185,7 +185,11 @@ static NSInteger const kDepthModalOptionTapMask = 1 << 9;
     self.options = options;
 
     window = [UIApplication sharedApplication].keyWindow;
-    self.rootViewController = window.rootViewController;
+    if (window.rootViewController.presentedViewController)
+        self.rootViewController = window.rootViewController.presentedViewController;
+    else
+        self.rootViewController = window.rootViewController;
+
     frame = self.rootViewController.view.frame;
     if(![UIApplication sharedApplication].isStatusBarHidden)
     {
