@@ -185,11 +185,7 @@ static NSInteger const kDepthModalOptionTapMask = 1 << 9;
     self.options = options;
 
     window = [UIApplication sharedApplication].keyWindow;
-    if (window.rootViewController.presentedViewController)
-        self.rootViewController = window.rootViewController.presentedViewController;
-    else
-        self.rootViewController = window.rootViewController;
-
+    self.rootViewController = window.rootViewController;
     frame = self.rootViewController.view.frame;
     if(![UIApplication sharedApplication].isStatusBarHidden)
     {
@@ -340,6 +336,18 @@ static NSInteger const kDepthModalOptionTapMask = 1 << 9;
         options |= ASDepthModalOptionTapOutsideInactive;
     
     return options;
+}
+
++ (BOOL)isPresenting
+{
+    UIWindow *window;
+    
+    window = [UIApplication sharedApplication].keyWindow;
+    if([window.rootViewController isKindOfClass:[ASDepthModalViewController class]])
+    {
+        return YES;
+    }
+    return  NO;
 }
 
 + (void)dismiss

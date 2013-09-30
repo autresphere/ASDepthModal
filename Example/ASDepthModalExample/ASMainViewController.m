@@ -88,6 +88,7 @@
                           completionHandler:^{
                               NSLog(@"Modal view closed.");
                           }];
+    
 }
 
 - (IBAction)closePopupAction:(id)sender

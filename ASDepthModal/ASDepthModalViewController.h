@@ -51,6 +51,8 @@ Mostly inspired by http://lab.hakim.se/avgrund/
 
 + (void)presentView:(UIView *)view backgroundColor:(UIColor *)color options:(ASDepthModalOptions)options completionHandler:(void(^)())handler;
 + (void)presentView:(UIView *)view;
+
++ (BOOL)isPresenting;
 + (void)dismiss;
 
 @end
