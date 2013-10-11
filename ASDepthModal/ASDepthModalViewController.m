@@ -28,6 +28,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UIImage+Blur.h"
 
+#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
+
 static NSTimeInterval const kModalViewAnimationDuration = 0.3;
 static CGFloat const kBlurValue = 0.2;
 static CGFloat const kDefaultiPhoneCornerRadius = 4;
@@ -143,19 +145,22 @@ static NSInteger const kDepthModalOptionTapMask = 1 << 9;
         self.rootViewController.view.layer.cornerRadius = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad?kDefaultiPadCornerRadius:kDefaultiPhoneCornerRadius);
         // Take care of the status bar only if the frame is full screen, which depends on the View controller type.
         // For example, frame is full screen with UINavigationController, but not with basic UIViewController.
-        if(UIInterfaceOrientationIsPortrait(self.rootViewController.interfaceOrientation))
-        {
-            if(frame.size.height == window.bounds.size.height)
-            {
-                frame.size.height -= [UIApplication sharedApplication].statusBarFrame.size.height;
-            }
-        }
-        else
-        {
-            if(frame.size.width == window.bounds.size.width)
-            {
-                frame.size.width -= [UIApplication sharedApplication].statusBarFrame.size.width;
-            }
+       
+       if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+            if(UIInterfaceOrientationIsPortrait(self.rootViewController.interfaceOrientation))
+           {
+               if(frame.size.height == window.bounds.size.height)
+              {
+                 frame.size.height -= [UIApplication sharedApplication].statusBarFrame.size.height;
+              }
+           }
+            else
+           {
+             if(frame.size.width == window.bounds.size.width)
+              {
+                 frame.size.width -= [UIApplication sharedApplication].statusBarFrame.size.width;
+              }
+           }
         }
     }
     self.view.transform = self.rootViewController.view.transform;
