@@ -21,7 +21,7 @@
 - (void)setupConfigurations
 {
     self.configurationColors = [NSArray arrayWithObjects:@"black (default)", @"pattern", nil];
-    self.configurationStyles = [NSArray arrayWithObjects:@"grow (default)", @"shrink", @"none", nil];
+    self.configurationStyles = [NSArray arrayWithObjects:@"grow (default)", @"shrink", @"none",@"dropDown", nil];
 }
 
 - (void)viewDidLoad
@@ -75,8 +75,12 @@
     {
         style = ASDepthModalOptionAnimationNone;
     }
+    else if(styleConfigurationIndex == 3)
+    {
+        style = ASDepthModalOptionAnimationDropDown;
+    }
 
-    options = style | (self.blurSwitch.on?ASDepthModalOptionBlur:ASDepthModalOptionBlurNone) | (self.tapOutsideSwitch.on?ASDepthModalOptionTapOutsideToClose:ASDepthModalOptionTapOutsideInactive);
+    options = style | ASDepthModalOptionAnimationCloseDropDown | (self.blurSwitch.on?ASDepthModalOptionBlur:ASDepthModalOptionBlurNone) | (self.tapOutsideSwitch.on?ASDepthModalOptionTapOutsideToClose:ASDepthModalOptionTapOutsideInactive);
     
     [ASDepthModalViewController presentView:self.popupView
                             backgroundColor:color
@@ -84,6 +88,7 @@
                           completionHandler:^{
                               NSLog(@"Modal view closed.");
                           }];
+    
 }
 
 - (IBAction)closePopupAction:(id)sender

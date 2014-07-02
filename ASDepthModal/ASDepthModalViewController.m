@@ -36,16 +36,19 @@ static CGFloat const kDefaultiPhoneCornerRadius = 4;
 static CGFloat const kDefaultiPadCornerRadius = 6;
 
 static NSInteger const kDepthModalOptionAnimationMask = 3 << 0;
+static NSInteger const kDepthModalOptionAnimationCloseMask = 3 << 4;
 static NSInteger const kDepthModalOptionBlurMask = 1 << 8;
 static NSInteger const kDepthModalOptionTapMask = 1 << 9;
 
 @interface ASDepthModalViewController ()
+@property (nonatomic, strong) UIViewController *viewProvider;
 @property (nonatomic, strong) UIViewController *rootViewController;
 @property (nonatomic, strong) UIView *coverView;
 @property (nonatomic, strong) UIView *popupView;
 @property (nonatomic, assign) CGAffineTransform initialPopupTransform;
 @property (nonatomic, strong) UIImageView *blurView;
 @property (nonatomic, strong) void(^completionHandler)();
+@property (nonatomic) ASDepthModalOptions options;
 @end
 
 @implementation ASDepthModalViewController
@@ -74,24 +77,59 @@ static NSInteger const kDepthModalOptionTapMask = 1 << 9;
 
 - (void)dismiss
 {
-    [UIView animateWithDuration:kModalViewAnimationDuration
-                     animations:^{
-                         self.coverView.alpha = 0;
-                         self.rootViewController.view.transform = CGAffineTransformIdentity;
-                         self.popupView.transform = self.initialPopupTransform;
-                         self.blurView.alpha = 0;
-                     }
-                     completion:^(BOOL finished) {
-                         [self.rootViewController.view.layer setMasksToBounds:NO];
-                         [self.blurView removeFromSuperview];
-                         [self restoreRootViewController];
-                         self.rootViewController.view.layer.cornerRadius = 0;
-                         
-                         if (self.completionHandler) {
-                             self.completionHandler();
-                         }
-                     }];
+    NSInteger style = (self.options & kDepthModalOptionAnimationCloseMask);
+    
+    void (^completion)(BOOL) = ^void (BOOL finished){
+        [self.rootViewController.view.layer setMasksToBounds:NO];
+        [self.blurView removeFromSuperview];
+        [self restoreRootViewController];
+        self.rootViewController.view.layer.cornerRadius = 0;
+        
+        if (self.completionHandler) {
+            self.completionHandler();
+        }
+
+    };
+    
+    switch (style) {
+        case ASDepthModalOptionAnimationCloseDropDown:
+        {
+            CGPoint point = self.popupView.center;
+            point.y += self.view.bounds.size.height;
+            [UIView animateWithDuration:0.3
+                                  delay:0
+                                options:UIViewAnimationOptionCurveEaseIn
+                             animations:^{
+                                 self.popupView.center = point;
+                                 CGFloat angle = ((CGFloat)arc4random_uniform(100) - 50.f) / 100.f;
+                                 self.popupView.transform = CGAffineTransformMakeRotation(angle);
+                                 
+                                 self.coverView.alpha = 0;
+                                 self.rootViewController.view.transform = CGAffineTransformIdentity;
+                                 // self.popupView.transform = self.initialPopupTransform;
+                                 self.blurView.alpha = 0;
+                             }
+                             completion:completion];
+        }
+            break;
+        default:
+        case ASDepthModalOptionAnimationCloseShrink:
+        {
+            [UIView animateWithDuration:kModalViewAnimationDuration
+                             animations:^{
+                                 self.coverView.alpha = 0;
+                                 self.rootViewController.view.transform = CGAffineTransformIdentity;
+                                 self.popupView.transform = self.initialPopupTransform;
+                                 self.blurView.alpha = 0;
+                             }
+                             completion:completion];
+        }
+            break;
+    }
+    
 }
+
+
 
 - (void)animatePopupWithStyle:(ASDepthModalOptions)options
 {
@@ -119,7 +157,17 @@ static NSInteger const kDepthModalOptionTapMask = 1 << 9;
                              }];
         }
             break;
-            
+            case ASDepthModalOptionAnimationDropDown:
+        {
+            CGFloat y = self.popupView.center.y;
+            CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"position.y"];
+            animation.values = @[@(y - self.view.bounds.size.height), @(y + 20), @(y - 10), @(y)];
+            animation.keyTimes = @[@(0), @(0.5), @(0.75), @(1)];
+            animation.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut], [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear], [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
+            animation.duration = 0.4;
+            [self.popupView.layer addAnimation:animation forKey:@"dropdown"];
+        }
+            break;
         default:
             self.initialPopupTransform = self.popupView.transform;
             break;
@@ -136,6 +184,7 @@ static NSInteger const kDepthModalOptionTapMask = 1 << 9;
         self.view.backgroundColor = color;
     }
     self.completionHandler = handler;
+    self.options = options;
 
     window = [UIApplication sharedApplication].keyWindow;
     self.rootViewController = window.rootViewController;
@@ -248,6 +297,20 @@ static NSInteger const kDepthModalOptionTapMask = 1 << 9;
     self.rootViewController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
 }
 
++ (void)presentViewController:(UIViewController *)viewController backgroundColor:(UIColor *)color options:(ASDepthModalOptions)options completionHandler:(void(^)())handler
+{
+    ASDepthModalViewController *modalViewController = [[ASDepthModalViewController alloc] init];
+    modalViewController.viewProvider = viewController;
+    
+    
+    [modalViewController presentView:viewController.view withBackgroundColor:(UIColor *)color options:options completionHandler:handler];
+}
+
++ (void)presentViewController:(UIViewController *)viewController
+{
+    [self presentViewController:viewController backgroundColor:nil options:0 completionHandler:nil];
+}
+
 + (void)presentView:(UIView *)view
 {
     [self presentView:view backgroundColor:nil options:0 completionHandler:nil];
@@ -278,6 +341,18 @@ static NSInteger const kDepthModalOptionTapMask = 1 << 9;
         options |= ASDepthModalOptionTapOutsideInactive;
     
     return options;
+}
+
++ (BOOL)isPresenting
+{
+    UIWindow *window;
+    
+    window = [UIApplication sharedApplication].keyWindow;
+    if([window.rootViewController isKindOfClass:[ASDepthModalViewController class]])
+    {
+        return YES;
+    }
+    return  NO;
 }
 
 + (void)dismiss
